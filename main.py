@@ -5,6 +5,7 @@ import time
 from DroneInfo import DroneInfo
 from control.DroneControl import DroneControl
 from control.DronePositionControl import DronePositionControl
+from ui.MainWindow import MainWindow
 from vision.ImageSegmentation import ImageSegmentation
 
 
@@ -14,7 +15,7 @@ class MainClass:
         self.drone = DroneControl()
         self.drone_controller = DronePositionControl()
         self.image_segmentation = ImageSegmentation()
-        self.main_window = None
+        self.main_window = MainWindow()
         self.task_period = 0.05  # seconds
         self.logger = logging.getLogger(self.__class__.__name__)
 
@@ -24,6 +25,8 @@ class MainClass:
         self.run()
 
     def run(self):
+        self.main_window.show_window()
+
         while self.running:
             image = self.drone.get_next_frame()
             info = self.image_segmentation.extract_information(image)
@@ -31,7 +34,7 @@ class MainClass:
             drone_info = DroneInfo()
             control = self.drone_controller.compute_drone_commands(drone_info)
             # TODO: something like self.drone.send_commands(control) - 3D control
-            # self.main_window.update(drone_info, image)
+            self.main_window.update_ui(drone_info, image)
             time.sleep(self.task_period)
 
     def stop(self):
