@@ -15,7 +15,7 @@ class MainClass:
         self.drone = DroneControl()
         self.drone_controller = DronePositionControl()
         self.image_segmentation = ImageSegmentation()
-        self.main_window = MainWindow()
+        self.main_window = MainWindow(self.drone)
         self.task_period = 0.05  # seconds
         self.logger = logging.getLogger(self.__class__.__name__)
 
