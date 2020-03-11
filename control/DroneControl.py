@@ -1,7 +1,10 @@
 class DroneControl:
     def __init__(self, drone_ip="192.168.1.1"):
         self.drone_ip = drone_ip
+
+    def connect(self):
         # TODO: connect with the drone
+        pass
 
     # TODO: add methods for go up, down, left, right, strafe, etc
 
