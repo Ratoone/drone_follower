@@ -10,6 +10,10 @@ from vision.ImageSegmentation import ImageSegmentation
 
 
 class MainClass:
+    """
+    Main class of the program. Will initialize everything and will continue running until
+    SIGINT is received. TODO: Consider running some things in separate processes, like UI
+    """
     def __init__(self):
         self.running = False
         self.drone = DroneControl()
@@ -45,5 +49,6 @@ class MainClass:
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - [%(name)s] %(levelname)s: %(message)s")
     main = MainClass()
+    # TODO: make this work on windows or consider alternatives
     signal.signal(signal.SIGINT, lambda sig, frame: main.stop())
     main.start()
